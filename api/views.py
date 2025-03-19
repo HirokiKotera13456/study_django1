@@ -7,12 +7,15 @@ from .serializers import ItemSerializer
 
 
 class ItemView(APIView):
+    
+    serializer_class = ItemSerializer
+    
     def get(self, request):
         return Response({"method": "get"})
 
     def post(self, request):
         print(request.data)
-        serializer = ItemSerializer(data=request.data)
+        serializer = self.serializer_class(data=request.data)
         print(serializer)
         print(serializer.is_valid(raise_exception=True))
         print(serializer.errors)
